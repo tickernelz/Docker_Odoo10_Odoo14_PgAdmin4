@@ -1,0 +1,25 @@
+version: '3.1'
+services:
+  web:
+    image: odoo:14.0
+    ports:
+      - "14002:8069"
+      - "14003:8072" # live chat
+    tty: true
+    external_links:
+      - "odoo14-db:db"
+    environment:
+      - HOST=db
+      - USER=odoo
+      - PASSWORD=odoo
+    networks:
+        public:
+            ipv4_address: 10.0.1.30
+    volumes:
+      - ./etc:/etc/odoo
+      - ./addons:/mnt/extra-addons
+
+networks:
+  public:
+    external:
+      name: public

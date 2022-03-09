@@ -1,0 +1,22 @@
+version: '3.1'
+services:
+  odoo:
+    image: odoo:10.0
+    ports:
+      - "10002:8069"
+      - "10003:8072"
+    #tty: true
+    command: -- --dev=reload
+    external_links:
+      - "odoo10-db:db"
+    networks:
+        public:
+            ipv4_address: 10.0.1.50
+    volumes:
+      - ./addons:/mnt/extra-addons
+      - ./etc:/etc/odoo
+
+networks:
+  public:
+    external:
+      name: public
